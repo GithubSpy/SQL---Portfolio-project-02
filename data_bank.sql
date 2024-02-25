@@ -38,7 +38,7 @@ where end_date != "9999-12-31";
 
 -- 5. What is the median, 80th and 95th percentile for this same reallocation days metric for each region?
 
-with RD as (select customer_id ,region_id, datediff(end_date, start_date) as Days_in_Node from customer
+with ARD as (select customer_id ,region_id, datediff(end_date, start_date) as Days_in_Node from customer
 where end_date != "9999-12-31"),
 ordered as (
 select region_id, Days_in_Node,
@@ -180,7 +180,7 @@ FROM updated_transactions
 ),
 avg_running AS(
 SELECT customer_id, month_name,month_number,
-AVG(running_balance) AS avg_balance
+round(AVG(running_balance),2) AS avg_balance
 FROM balance
 GROUP BY 1,2,3
 ORDER BY 1
